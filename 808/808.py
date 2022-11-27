@@ -5,7 +5,21 @@ import time
 import sympy.ntheory as nt
 
 def generate_next_prime(prime):
-    '''generate prime numbers'''
+    '''generate prime numbers: this used to be much shorter, comprised of just the following two lines - 
+    nextprime = nt.nextprime(prime)
+    return nextprime
+    but i realized that not all the primes are being used anyways, 
+    '''
+    if len(str(prime)) % 2 != 0:
+        if str(prime)[:2] > '32' or ((str(prime))[::-1])[:2] > '32':
+            length = len(str(prime))
+            while len(str(prime)) < length:
+                nextprime = nt.nextprime(prime)
+    elif len(str(prime)) % 2 == 0:
+        if str(prime)[:2] > '10' or ((str(prime))[::-1])[:2] > '10':
+            length = len(str(prime))
+            while len(str(prime)) < length:
+                nextprime = nt.nextprime(prime)
     nextprime = nt.nextprime(prime)
     return nextprime
 
@@ -54,7 +68,8 @@ def main():
             #print("Checking reverse: {}".format(rev))
             if check_root_prime(rev):
                 reversible_prime_squares.add(primenum**2)
-                print("Found reversible prime square! {} is a valid number. Adding to set...".format(primenum**2))
+                reversible_prime_squares.add(rev)
+                print("Found reversible prime square! {} and its reverse are valid numbers. Adding to set...".format(primenum**2))
             #else:
                 #print("Reverse is not a prime square...")
         #else:
