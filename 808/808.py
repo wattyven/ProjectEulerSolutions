@@ -8,15 +8,17 @@ def generate_next_prime(prime):
     '''generate prime numbers: this used to be much shorter, comprised of just the following two lines - 
     nextprime = nt.nextprime(prime)
     return nextprime
-    but i realized that not all the primes are being used anyways, 
+    but i realized that not all the primes are being used anyways, so we'll filter out those unused ones
     '''
     if len(str(prime)) % 2 != 0:
-        if str(prime)[:2] > '32' or ((str(prime))[::-1])[:2] > '32':
+        if str(prime)[:2] > '32' or ((str(prime))[::-1])[:2] > '32': # if you look at nums comprised solely of 9s
+            # with an odd num of digits (the max num of that length), the square root is always under 3.16228 e X, 
+            # where X is some positive int, so let's filter out all the numbers greater than that
             length = len(str(prime))
             while len(str(prime)) < length:
                 nextprime = nt.nextprime(prime)
     elif len(str(prime)) % 2 == 0:
-        if str(prime)[:2] > '10' or ((str(prime))[::-1])[:2] > '10':
+        if str(prime)[:2] > '10' or ((str(prime))[::-1])[:2] > '10': 
             length = len(str(prime))
             while len(str(prime)) < length:
                 nextprime = nt.nextprime(prime)
@@ -68,7 +70,7 @@ def main():
             #print("Checking reverse: {}".format(rev))
             if check_root_prime(rev):
                 reversible_prime_squares.add(primenum**2)
-                reversible_prime_squares.add(rev)
+                reversible_prime_squares.add(rev) # i left this out the first time, this saves us a LOT of time
                 print("Found reversible prime square! {} and its reverse are valid numbers. Adding to set...".format(primenum**2))
             #else:
                 #print("Reverse is not a prime square...")
